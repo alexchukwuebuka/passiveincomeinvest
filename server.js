@@ -9,7 +9,7 @@ const path = require('path')
 var serveStatic = require('serve-static')
 const Token = require('./models/token')
 const crypto = require('crypto')
-const sendEmail = require('./utils/sendEmail')
+// const sendEmail = require('./utils/sendEmail')
 dotenv.config()
 
 const app = express()
@@ -319,6 +319,36 @@ app.post('/api/deleteUser', async (req, res) => {
   } catch (error) {
     return res.json({status:500,msg:`${error}`})
   }
+})
+
+app.post('/api/upgradeUser', async (req, res) => {
+  try {
+    const email = req.body.email
+    const incomingAmount = req.body.amount
+    const user = await User.findOne({ email: email })
+    if (user) {
+      await User.updateOne(
+        { email: email }, {
+        $set: {
+          funded: incomingAmount + user.funded,
+          capital: user.capital + incomingAmount,
+          totalProfit: user.totalprofit + incomingAmount
+        }
+      }
+      )
+      res.json({
+        status: 'ok',
+        funded: req.body.amount
+      })
+    }
+  }
+  catch (error) {
+    res.json({
+        status: 'error',
+      })
+  }
+    
+
 })
 
 app.post('/api/withdraw', async (req, res) => {
