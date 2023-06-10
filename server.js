@@ -9,7 +9,6 @@ const path = require('path')
 var serveStatic = require('serve-static')
 const Token = require('./models/token')
 const crypto = require('crypto')
-// const sendEmail = require('./utils/sendEmail')
 dotenv.config()
 
 const app = express()
