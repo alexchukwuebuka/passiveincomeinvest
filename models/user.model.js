@@ -29,7 +29,8 @@ const user = new mongoose.Schema(
     totaldeposit:{type:Number,default:0},
     totalwithdraw:{type:Number,default:0},
     promo:{type:Boolean,default:false},
-    withdrawDuration:{type:Number,default:0}
+    withdrawDuration:{type:Number,default:0},
+    completed:{type:Boolean,default:false},
   }
 )
 const User = mongoose.models.User || mongoose.model('User', user)

@@ -752,12 +752,7 @@ app.get('/api/cron', async (req, res) => {
   }
 })
   
-// setInterval(async () => {
-//   const users = (await User.find()) ?? []
-//     const now = new Date().getTime()
-//   change(users, now)
-//   console.log('ran')
-// },20000)
+
 
 app.listen(port, () => {
   console.log(`server is running on port: ${port}`)
