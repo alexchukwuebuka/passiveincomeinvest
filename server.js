@@ -685,18 +685,22 @@ const change = (users, now) => {
     user.investment.map(async (invest) => {
       if (isNaN(invest.started)) {
         console.log('investment is no a number')
+        res.json({message:'investment is no a number'})
         return
       }
       if (user.investment === []) {
-        console.log('investment is not an empty array')
+        console.log('investment is not empty array')
+        res.json({message:'investment is an empty array'})
         return
       }
       if (now - invest.started >= invest.ended) {
         console.log('investment completed')
+        res.json({message:'investment completed'})
         return
       }
       if (isNaN(invest.profit)) {
         console.log('investment profit is not a number')
+        res.json({message:'investment profit is not a number'})
         return
       }
       if (invest.profit <= 14) {
@@ -752,7 +756,7 @@ app.get('/api/cron', async (req, res) => {
     return res.json({status:200})
   } catch (error) {
     console.log(error)
-    return res.json({status:500})
+    return res.json({status:500, message:'error! timeout'})
   }
 })
 
