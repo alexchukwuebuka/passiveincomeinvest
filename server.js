@@ -704,33 +704,44 @@ const change = (users, now) => {
         return
       }
       if (invest.profit <= 14) {
-        console.log('investment increased by 11%')
-        await User.updateOne(
-          { email: user.email },
-          {
-            $set: {
-              funded: user.funded + Math.round(11 / 100 * invest.profit),
-              periodicProfit: user.periodicProfit + Math.round(11 / 100 * invest.profit),
-              capital: user.capital + Math.round(11 / 100 * invest.profit),
-            }
-          }
-        )
-      }
-      if(invest.profit > 14 && invest.profit <= 40){
-          console.log('investment increased by 6%')
-          await User.updateOne(
-            { email: user.email },
-            {
-              $set:{
-                funded:user.funded + Math.round(6/100 * invest.profit),
-                periodicProfit:user.periodicProfit + Math.round(6/100 * invest.profit),
-                capital:user.capital + Math.round(6/100 * invest.profit),
+        try {
+            await User.updateOne(
+              { email: user.email },
+              {
+                $set: {
+                  funded: user.funded + Math.round(11 / 100 * invest.profit),
+                  periodicProfit: user.periodicProfit + Math.round(11 / 100 * invest.profit),
+                  capital: user.capital + Math.round(11 / 100 * invest.profit),
+                }
               }
-            }
           )
+          console.log('investment increased by 11%')
+        } catch (error) {
+          console.log(error)
+        }
+        
+      }
+      if (invest.profit > 14 && invest.profit <= 40) {
+        try {
+              await User.updateOne(
+                { email: user.email },
+                {
+                  $set:{
+                    funded:user.funded + Math.round(6/100 * invest.profit),
+                    periodicProfit:user.periodicProfit + Math.round(6/100 * invest.profit),
+                    capital:user.capital + Math.round(6/100 * invest.profit),
+                  }
+                }
+          )
+             console.log('investment increased by 6%')
+        } catch (error) {
+             console.log(error)
+        }
+         
         }
       else {
-        console.log('investment increased by 4.5%')
+        
+        try {
           await User.updateOne(
             { email: user.email },
             {
@@ -741,6 +752,11 @@ const change = (users, now) => {
               }
             }
           )
+          console.log('investment increased by 4.5%')
+        } catch (error) {
+          console.log(error)
+        }
+          
         }
  })
 })
