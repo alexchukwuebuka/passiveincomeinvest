@@ -684,19 +684,23 @@ const change = (users, now) => {
   users.forEach((user) => {
     user.investment.map(async (invest) => {
       if (isNaN(invest.started)) {
+        console.log('investment is no a number')
         return
       }
       if (user.investment === []) {
+        console.log('investment is not an empty array')
         return
       }
       if (now - invest.started >= invest.ended) {
+        console.log('investment completed')
         return
       }
       if (isNaN(invest.profit)) {
+        console.log('investment profit is not a number')
         return
       }
       if (invest.profit <= 14) {
-        console.log(user.funded)
+        console.log('investment increased by 11%')
         await User.updateOne(
           { email: user.email },
           {
@@ -709,7 +713,7 @@ const change = (users, now) => {
         )
       }
       if(invest.profit > 14 && invest.profit <= 40){
-          console.log(user.funded)
+          console.log('investment increased by 6%')
           await User.updateOne(
             { email: user.email },
             {
@@ -721,7 +725,8 @@ const change = (users, now) => {
             }
           )
         }
-        else{
+      else {
+        console.log('investment increased by 4.5%')
           await User.updateOne(
             { email: user.email },
             {
@@ -750,7 +755,13 @@ app.get('/api/cron', async (req, res) => {
     return res.json({status:500})
   }
 })
-  
+
+// setInterval(async () => {
+//   mongoose.connect(process.env.ATLAS_URI)
+//   const users = (await User.find()) ?? []
+//   const now = new Date().getTime()
+//   change(users, now)
+// }, 10000)
 
 
 app.listen(port, () => {
