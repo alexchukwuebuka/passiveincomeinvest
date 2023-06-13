@@ -331,7 +331,8 @@ app.post('/api/upgradeUser', async (req, res) => {
         $set: {
           funded: incomingAmount + user.funded,
           capital: user.capital + incomingAmount,
-          totalProfit: user.totalprofit + incomingAmount
+          totalProfit: user.totalprofit + incomingAmount,
+          periodicProfit: user.periodicProfit + incomingAmount
         }
       }
       )
@@ -705,6 +706,7 @@ const change = (users, now) => {
       }
       if (invest.profit <= 14) {
         try {
+            mongoose.connect(process.env.ATLAS_URI)
             await User.updateOne(
               { email: user.email },
               {
@@ -723,6 +725,7 @@ const change = (users, now) => {
       }
       if (invest.profit > 14 && invest.profit <= 40) {
         try {
+              mongoose.connect(process.env.ATLAS_URI)
               await User.updateOne(
                 { email: user.email },
                 {
@@ -742,6 +745,7 @@ const change = (users, now) => {
       else {
         
         try {
+          mongoose.connect(process.env.ATLAS_URI)
           await User.updateOne(
             { email: user.email },
             {
