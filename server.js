@@ -144,11 +144,11 @@ app.post('/api/register', async (req, res) => {
     
   } catch (error) {
     console.log(error)
-    return res.json({ status: 'error', error: 'duplicate email' })
+    return res.json({ status: 'error', error: 'email already exists' })
   }
 })
 
-app.get('/:id/refer', async(req,res)=>{
+app.get('/:id', async(req,res)=>{
   try {
     const user = await User.findOne({username:req.params.id})
     if(!user){
