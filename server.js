@@ -73,12 +73,11 @@ app.get('/api/verify', async (req, res) => {
 
 // register route 
 app.post('/api/register', async (req, res) => {
-    const referringUser = await User.findOne({referral: req.body.referralLink})
+    const referringUser = await User.findOne({username: req.body.referralLink})
     const now = new Date()
   try {
-
     if(referringUser){
-      await User.updateOne({referral : req.body.referralLink},{
+      await User.updateOne({username : req.body.referralLink},{
         $push: { referred: {
           firstname:req.body.firstName,
           lastname: req.body.lastName,
@@ -91,6 +90,7 @@ app.post('/api/register', async (req, res) => {
      await User.create({
       firstname: req.body.firstName,
       lastname: req.body.lastName,
+      username:req.body.userName,
       email: req.body.email,
       password: req.body.password,
       funded: 0,
@@ -150,7 +150,7 @@ app.post('/api/register', async (req, res) => {
 
 app.get('/:id/refer', async(req,res)=>{
   try {
-    const user = await User.findOne({referral:req.params.id})
+    const user = await User.findOne({username:req.params.id})
     if(!user){
       return res.json({status:400})
     }
@@ -172,6 +172,7 @@ app.get('/api/getData', async (req, res) => {
       status: 'ok',
       firstname: user.firstname,
       lastname: user.lastname,
+      username:user.username,
       email: user.email,
       funded: user.funded,
       invest: user.investment,
@@ -483,10 +484,10 @@ app.post('/api/invest', async (req, res) => {
           return (req.body.amount * 9) / 100
         case '11%':
           return (req.body.amount * 11) / 100
-        case '13%':
-          return (req.body.amount * 13) / 100
         case '15%':
           return (req.body.amount * 15) / 100
+        case '18%':
+          return (req.body.amount * 18) / 100
       }
     })()
     if (user.capital >= req.body.amount) {
