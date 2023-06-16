@@ -148,7 +148,7 @@ app.post('/api/register', async (req, res) => {
   }
 })
 
-app.get('/:id', async(req,res)=>{
+app.get('/:id/refer', async(req,res)=>{
   try {
     const user = await User.findOne({username:req.params.id})
     if(!user){
