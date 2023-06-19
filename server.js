@@ -238,10 +238,9 @@ app.post('/api/fundwallet', async (req, res) => {
         totaldeposit: user.totaldeposit + incomingAmount
       }}
     )
-
-    const upline = await User.findOne({ referral: user.upline })
+    const upline = await User.findOne({ username: user.upline })
     if (upline) {
-      await User.updateOne({ referral: user.upline }, {
+      await User.updateOne({ username: user.upline }, {
         $set: {
           refBonus: 10 / 100 * incomingAmount,
           totalprofit: upline.totalprofit + (10 / 100 * incomingAmount),
