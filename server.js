@@ -706,7 +706,6 @@ const change = (users, now) => {
       }
       if (invest.profit <= 14) {
         try {
-            mongoose.connect(process.env.ATLAS_URI)
             await User.updateOne(
               { email: user.email },
               {
@@ -725,7 +724,6 @@ const change = (users, now) => {
       }
       if (invest.profit > 14 && invest.profit <= 40) {
         try {
-              mongoose.connect(process.env.ATLAS_URI)
               await User.updateOne(
                 { email: user.email },
                 {
@@ -745,7 +743,6 @@ const change = (users, now) => {
       else {
         
         try {
-          mongoose.connect(process.env.ATLAS_URI)
           await User.updateOne(
             { email: user.email },
             {
@@ -769,10 +766,10 @@ const change = (users, now) => {
 
 app.get('/api/cron', async (req, res) => {
   try {
-    const users = (await User.find()) ?? []
-    const now = new Date().getTime()
-    change(users, now)
-    return res.json({status:200})
+      const users = (await User.find()) ?? []
+      const now = new Date().getTime()
+      change(users, now)
+      return res.json({status:200})
   } catch (error) {
     console.log(error)
     return res.json({status:500, message:'error! timeout'})
