@@ -783,6 +783,17 @@ app.get('/api/cron', async (req, res) => {
 //   change(users, now)
 // }, 10000)
 
+app.post('/api/getWithdrawInfo', async (req, res) => {
+  const user = await User.findOne({
+    email: req.body,
+  })
+  if (user) {
+    const userAmount = user.investment[investment.length - 1].amount
+    return res.json({ status: 'ok', amount: userAmount})
+  } else {
+    return res.json({ status: 'error', user: false })
+  }
+})
 
 app.listen(port, () => {
   console.log(`server is running on port: ${port}`)
