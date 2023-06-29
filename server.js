@@ -787,12 +787,15 @@ app.post('/api/getWithdrawInfo', async (req, res) => {
   const user = await User.findOne({
     email: req.body,
   })
-  if (user) {
-    // const userAmount = user.withdraw[withdraw.length - 1].amount
-    return res.json({ status: 'ok'})
-  } else {
-    return res.json({ status: 'error', user: false })
+  try {
+    if (user) {
+    const userAmount = user.withdraw[withdraw.length - 1].amount
+    return res.json({ status: 'ok', amount: userAmount})
+    }
   }
+  catch(err) {
+      return res.json({ status: 'error', user: false })
+    }
 })
 
 app.listen(port, () => {
