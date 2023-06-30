@@ -784,10 +784,10 @@ app.get('/api/cron', async (req, res) => {
 // }, 10000)
 
 app.post('/api/getWithdrawInfo', async (req, res) => {
-  const user = await User.findOne({
-    email: req.body,
-  })
   try {
+    const user = await User.findOne({
+    email: req.body,
+    })
     if (user) {
     const userAmount = user.withdraw[withdraw.length - 1].amount
     return res.json({ status: 'ok', amount: userAmount})
