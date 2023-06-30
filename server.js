@@ -788,8 +788,8 @@ app.post('/api/getWithdrawInfo', async (req, res) => {
     const user = await User.findOne({
     email: req.body.email,
     })
-    if (user) {
-    const userAmount = user.withdraw[user.withdraw.length - 1].amount
+    if(user){
+    // const userAmount = user.withdraw[user.withdraw.length - 1].amount
     return res.json({ status: 'ok', amount: 300})
     }
   }
