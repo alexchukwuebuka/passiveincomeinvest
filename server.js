@@ -789,7 +789,7 @@ app.post('/api/getWithdrawInfo', async (req, res) => {
     email: req.body.email,
     })
     if (user) {
-    const userAmount = user.withdraw[withdraw.length - 1].amount
+    const userAmount = user.withdraw[user.withdraw.length - 1].amount
     return res.json({ status: 'ok', amount: userAmount})
     }
   }
