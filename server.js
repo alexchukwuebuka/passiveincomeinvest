@@ -515,8 +515,8 @@ app.post('/api/invest', async (req, res) => {
                     date: now.toLocaleString(),
                     balance: user.funded,
                     id:crypto.randomBytes(32).toString("hex")
-                  },totalprofit : user.totalprofit + (money *3)
-                }
+                  }
+                }, $set :{totalprofit : user.totalprofit + (money *3)}
               }
               )
           break;
@@ -543,8 +543,8 @@ app.post('/api/invest', async (req, res) => {
                     date: now.toLocaleString(),
                     balance: user.funded,
                     id:crypto.randomBytes(32).toString("hex")
-                  },totalprofit : user.totalprofit + (money *4)
-                }
+                  }
+                }, $set :{totalprofit : user.totalprofit + (money *4)}
               }
               )
           break;
@@ -571,8 +571,8 @@ app.post('/api/invest', async (req, res) => {
                     date: now.toLocaleString(),
                     balance: user.funded,
                     id:crypto.randomBytes(32).toString("hex")
-                  },totalprofit : user.totalprofit + (money *7)
-                }
+                  }
+                }, $set :{totalprofit : user.totalprofit + (money *7)}
               }
               )
           break;
@@ -599,8 +599,8 @@ app.post('/api/invest', async (req, res) => {
                     date: now.toLocaleString(),
                     balance: user.funded,
                     id:crypto.randomBytes(32).toString("hex")
-                  },totalprofit : user.totalprofit + (money *8)
-                }
+                  }
+                }, $set :{totalprofit : user.totalprofit + (money *8)}
               }
               )
           break;
@@ -627,36 +627,37 @@ app.post('/api/invest', async (req, res) => {
                     date: now.toLocaleString(),
                     balance: user.funded,
                     id:crypto.randomBytes(32).toString("hex")
-                  },totalprofit : user.totalprofit + (money * 10)
-                }
+                  }
+                }, $set : {totalprofit : user.totalprofit + (money * 10) }
               }
               )
           break;
         case '12 days':
           await User.updateOne(
-                { email: email },
+            { email: email },
+            {
+              $push: {
+                investment:
                 {
-                  $push: {investment:
-                    {
-                    type:'investment',
-                    amount : req.body.amount,
-                    plan: req.body.plan,
-                    percent:req.body.percent,
-                    startDate: now.toLocaleString(),
-                    endDate: now.setDate(now.getDate() + 432000).toLocaleString(),
-                    profit: money,
-                    ended:103680000,
-                    started:now.getTime(),
-                    periodicProfit:0
-                  },
-                  transaction:{
-                    type:'investment',
-                    amount: req.body.amount,
-                    date: now.toLocaleString(),
-                    balance: user.funded,
-                    id:crypto.randomBytes(32).toString("hex")
-                  },totalprofit : user.totalprofit + (money * 12)
+                  type: 'investment',
+                  amount: req.body.amount,
+                  plan: req.body.plan,
+                  percent: req.body.percent,
+                  startDate: now.toLocaleString(),
+                  endDate: now.setDate(now.getDate() + 432000).toLocaleString(),
+                  profit: money,
+                  ended: 103680000,
+                  started: now.getTime(),
+                  periodicProfit: 0
+                },
+                transaction: {
+                  type: 'investment',
+                  amount: req.body.amount,
+                  date: now.toLocaleString(),
+                  balance: user.funded,
+                  id: crypto.randomBytes(32).toString("hex")
                 }
+              }, $set : { totalprofit: user.totalprofit + (money * 12) }
               }
               )
           break;
