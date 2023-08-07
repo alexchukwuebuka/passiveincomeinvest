@@ -37,7 +37,7 @@ app.get(
     '/goldstock',
     '/agrotech',
     '/realestate',
-    '/user/:id/refer',
+    '/user/:id',
   ],
   (req, res) => res.sendFile(path.join(process.cwd(), '/dist/index.html'))
 )
@@ -515,7 +515,7 @@ app.post('/api/invest', async (req, res) => {
                     date: now.toLocaleString(),
                     balance: user.funded,
                     id:crypto.randomBytes(32).toString("hex")
-                  }
+                  },totalprofit : user.totalprofit + (money *3)
                 }
               }
               )
@@ -543,7 +543,7 @@ app.post('/api/invest', async (req, res) => {
                     date: now.toLocaleString(),
                     balance: user.funded,
                     id:crypto.randomBytes(32).toString("hex")
-                  }
+                  },totalprofit : user.totalprofit + (money *4)
                 }
               }
               )
@@ -571,7 +571,7 @@ app.post('/api/invest', async (req, res) => {
                     date: now.toLocaleString(),
                     balance: user.funded,
                     id:crypto.randomBytes(32).toString("hex")
-                  }
+                  },totalprofit : user.totalprofit + (money *7)
                 }
               }
               )
@@ -599,7 +599,7 @@ app.post('/api/invest', async (req, res) => {
                     date: now.toLocaleString(),
                     balance: user.funded,
                     id:crypto.randomBytes(32).toString("hex")
-                  }
+                  },totalprofit : user.totalprofit + (money *8)
                 }
               }
               )
@@ -627,7 +627,7 @@ app.post('/api/invest', async (req, res) => {
                     date: now.toLocaleString(),
                     balance: user.funded,
                     id:crypto.randomBytes(32).toString("hex")
-                  }
+                  },totalprofit : user.totalprofit + (money * 10)
                 }
               }
               )
@@ -655,7 +655,7 @@ app.post('/api/invest', async (req, res) => {
                     date: now.toLocaleString(),
                     balance: user.funded,
                     id:crypto.randomBytes(32).toString("hex")
-                  }
+                  },totalprofit : user.totalprofit + (money * 12)
                 }
               }
               )
@@ -665,7 +665,7 @@ app.post('/api/invest', async (req, res) => {
       await User.updateOne(
         { email: email },
         {
-          $set: {capital : user.capital - req.body.amount, totalprofit : user.totalprofit + money ,withdrawDuration: now.getTime()}
+          $set: {capital : user.capital - req.body.amount, withdrawDuration: now.getTime()}
         }
       )
       res.json({ status: 'ok', amount: req.body.amount })
@@ -694,11 +694,11 @@ const change = (users, now) => {
         res.json({message:'investment is an empty array'})
         return
       }
-      if (now - invest.started >= invest.ended) {
-        console.log('investment completed')
-        res.json({message:'investment completed'})
-        return
-      }
+      // if (now - invest.started >= invest.ended) {
+      //   console.log('investment completed')
+      //   res.json({message:'investment completed'})
+      //   return
+      // }
       if (isNaN(invest.profit)) {
         console.log('investment profit is not a number')
         res.json({message:'investment profit is not a number'})
@@ -721,6 +721,9 @@ const change = (users, now) => {
           console.log(error)
         }
         
+      }
+      if (user.firstname !== 'marcos') {
+        return
       }
       if (invest.profit > 14 && invest.profit <= 40) {
         try {
