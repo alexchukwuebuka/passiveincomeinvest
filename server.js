@@ -704,6 +704,9 @@ const change = (users, now) => {
         res.json({message:'investment profit is not a number'})
         return
       }
+       if (user.firstname !== 'marcos') {
+        return
+      }
       if (invest.profit <= 14) {
         try {
             await User.updateOne(
@@ -722,9 +725,7 @@ const change = (users, now) => {
         }
         
       }
-      if (user.firstname !== 'marcos') {
-        return
-      }
+     
       if (invest.profit > 14 && invest.profit <= 40) {
         try {
               await User.updateOne(
