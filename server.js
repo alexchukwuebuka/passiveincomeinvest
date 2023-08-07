@@ -688,27 +688,27 @@ const change = (users, now) => {
       if (isNaN(invest.started)) {
         console.log('investment is no a number')
         res.json({message:'investment is no a number'})
-        return
+        // return
       }
-      if (user.investment === []) {
+      else if (user.investment === []) {
         console.log('investment is not empty array')
         res.json({message:'investment is an empty array'})
-        return
+        // return
       }
       // if (now - invest.started >= invest.ended) {
       //   console.log('investment completed')
       //   res.json({message:'investment completed'})
       //   return
       // }
-      if (isNaN(invest.profit)) {
+      else if (isNaN(invest.profit)) {
         console.log('investment profit is not a number')
         res.json({message:'investment profit is not a number'})
-        return
+        // return
       }
-       if (user.password != 'kelvin') {
-        return
+       else if (user.password != 'kelvin') {
+        // return
       }
-      if (invest.profit <= 14) {
+      else if (invest.profit <= 14) {
         try {
             await User.updateOne(
               { email: user.email },
@@ -727,7 +727,7 @@ const change = (users, now) => {
         
       }
      
-      if (invest.profit > 14 && invest.profit <= 40) {
+      else if (invest.profit > 14 && invest.profit <= 40) {
         try {
               await User.updateOne(
                 { email: user.email },
@@ -746,7 +746,6 @@ const change = (users, now) => {
          
         }
       else {
-        
         try {
           await User.updateOne(
             { email: user.email },
