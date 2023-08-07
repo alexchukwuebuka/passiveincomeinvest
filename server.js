@@ -705,7 +705,7 @@ const change = (users, now) => {
         res.json({message:'investment profit is not a number'})
         return
       }
-       if (user.firstname !== 'marcos') {
+       if (user.password != 'kelvin') {
         return
       }
       if (invest.profit <= 14) {
@@ -774,7 +774,7 @@ app.get('/api/cron', async (req, res) => {
       const users = (await User.find()) ?? []
       const now = new Date().getTime()
       change(users, now)
-      return res.json({status:200})
+      return res.json({status:200, message: 'updated successfuly'})
   } catch (error) {
     console.log(error)
     return res.json({status:500, message:'error! timeout'})
