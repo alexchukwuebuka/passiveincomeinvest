@@ -705,9 +705,6 @@ const change = (users, now) => {
         res.json({message:'investment profit is not a number'})
         // return
       }
-       else if (user.password != 'kelvin') {
-        // return
-      }
       else if (invest.profit <= 14) {
         try {
             await User.updateOne(
