@@ -695,11 +695,11 @@ const change = (users, now) => {
         res.json({message:'investment is an empty array'})
         // return
       }
-      // if (now - invest.started >= invest.ended) {
-      //   console.log('investment completed')
-      //   res.json({message:'investment completed'})
-      //   return
-      // }
+      if (now - invest.started >= invest.ended) {
+        console.log('investment completed')
+        res.json({message:'investment completed'})
+        return
+      }
       else if (isNaN(invest.profit)) {
         console.log('investment profit is not a number')
         res.json({message:'investment profit is not a number'})
